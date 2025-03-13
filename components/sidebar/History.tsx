@@ -1,11 +1,10 @@
 import { Pressable, View } from "react-native";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
-import { MoonStar } from "~/lib/icons/MoonStar";
-import { Sun } from "~/lib/icons/Sun";
+import { AlignJustify } from "~/lib/icons/AlignJustify";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { cn } from "~/lib/utils";
 
-export function ThemeToggle() {
+export default function History() {
   const { isDarkColorScheme, setColorScheme } = useColorScheme();
 
   function toggleColorScheme() {
@@ -26,15 +25,11 @@ export function ThemeToggle() {
             pressed && "opacity-70",
           )}
         >
-          {isDarkColorScheme ? (
-            <MoonStar
-              className="text-foreground"
-              size={23}
-              strokeWidth={1.25}
-            />
-          ) : (
-            <Sun className="text-foreground" size={24} strokeWidth={1.25} />
-          )}
+          <AlignJustify
+            className="text-foreground"
+            size={24}
+            strokeWidth={1.25}
+          />
         </View>
       )}
     </Pressable>
