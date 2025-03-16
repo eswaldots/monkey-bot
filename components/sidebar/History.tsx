@@ -1,6 +1,6 @@
 import { Pressable, View } from "react-native";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
-import { AlignJustify } from "~/lib/icons/AlignJustify";
+import { AlignJustify } from "~/lib/icons/ui/AlignJustify";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { cn } from "~/lib/utils";
 

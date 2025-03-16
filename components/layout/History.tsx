@@ -1,6 +1,6 @@
 import { DrawerActions, useNavigation } from "@react-navigation/native";
 import { Pressable } from "react-native";
-import { AlignJustify } from "~/lib/icons/AlignJustify";
+import { AlignJustify } from "~/lib/icons/ui/AlignJustify";
 
 export default function History() {
   const navigation = useNavigation();

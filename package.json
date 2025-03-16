@@ -13,6 +13,9 @@
     "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {
+    "@ai-sdk/deepseek": "^0.1.15",
+    "@ai-sdk/openai": "^1.2.5",
+    "@ai-sdk/react": "^1.1.23",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/drawer": "^7.1.2",
     "@react-navigation/native": "^7.0.0",
@@ -22,6 +25,7 @@
     "@rn-primitives/slot": "~1.1.0",
     "@rn-primitives/tooltip": "~1.1.0",
     "@rn-primitives/types": "~1.1.0",
+    "ai": "^4.1.61",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "expo": "^52.0.25",
@@ -35,6 +39,7 @@
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-hook-form": "^7.54.2",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-keyboard-controller": "^1.16.7",
@@ -46,6 +51,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss": "3.3.5",
     "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.2",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
