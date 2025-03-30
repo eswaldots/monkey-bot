@@ -36,7 +36,7 @@ export default function Screen() {
             Que quieres
           </Text>
           <View className="mx-2 h-10 justify-center overflow-hidden">
-            <Typewriter text="hacer" delay={200} />
+            <Typewriter arrayText={actions} delay={200} />
           </View>
           <Text className="text-foreground text-3xl font-black">hoy?</Text>
         </View>
