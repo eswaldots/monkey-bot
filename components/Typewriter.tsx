@@ -5,8 +5,9 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withSpring,
+  withSequence,
   withTiming,
+  withDelay,
 } from "react-native-reanimated";
 
 interface TypewriterProps {
@@ -15,37 +16,48 @@ interface TypewriterProps {
 }
 
 export default function Typewriter({ arrayText, delay }: TypewriterProps) {
-  const [text, setText] = useState(arrayText[0]);
-
-  const width = useSharedValue(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const currentText = arrayText[currentIndex];
 
   useEffect(() => {
-    width.value = withRepeat(
-      withTiming(text.length * 15, {
-        duration: 1000,
-        easing: Easing.inOut(Easing.quad),
-      }),
-      -1,
-      true,
-      () => nextText(),
-    );
-  }, []);
+    let timeout: NodeJS.Timeout;
+    let currentLength = 0;
+    let isTyping = true;
 
-  const nextText = () => {
-    const textIndex = arrayText.findIndex((texts) => texts === text);
+    const animate = () => {
+      if (isTyping) {
+        if (currentLength <= currentText.length) {
+          setDisplayText(currentText.slice(0, currentLength));
+          currentLength++;
+          timeout = setTimeout(animate, 50); // Velocidad de escritura
+        } else {
+          isTyping = false;
+          timeout = setTimeout(animate, 2000); // Pausa antes de borrar
+        }
+      } else {
+        if (currentLength >= 0) {
+          setDisplayText(currentText.slice(0, currentLength));
+          currentLength--;
+          timeout = setTimeout(animate, 50); // Velocidad de borrado
+        } else {
+          isTyping = true;
+          currentLength = 0;
+          setCurrentIndex((prev) => (prev + 1) % arrayText.length);
+        }
+      }
+    };
 
-    setText(arrayText[textIndex + 1]);
-  };
+    animate();
+
+    return () => clearTimeout(timeout);
+  }, [currentText]);
 
   return (
     <Animated.View className="flex flex-row items-center gap-[1px]">
-      <Animated.Text
-        style={{ width: width }}
-        className="text-primary text-3xl font-black"
-      >
-        {text}
+      <Animated.Text className="text-primary text-3xl font-black">
+        {displayText}
       </Animated.Text>
-
       <CursorBlinker />
     </Animated.View>
   );
@@ -55,14 +67,19 @@ function CursorBlinker() {
   const opacity = useSharedValue(0);
 
   useEffect(() => {
-    opacity.value = withRepeat(withSpring(1), -1, true);
-  });
-
-  const cursorStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value,
-    };
+    opacity.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 500 }),
+        withTiming(0, { duration: 500 }),
+      ),
+      -1,
+      true,
+    );
   }, []);
+
+  const cursorStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   return <Animated.View style={cursorStyle} className="w-1 h-6 bg-primary" />;
 }
