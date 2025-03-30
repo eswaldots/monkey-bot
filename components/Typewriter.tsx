@@ -54,7 +54,7 @@ export default function Typewriter({ arrayText, delay }: TypewriterProps) {
   }, [currentText]);
 
   return (
-    <Animated.View className="flex flex-row items-center gap-[1px]">
+    <Animated.View className="flex flex-row items-center gap-[3px]">
       <Animated.Text className="text-primary text-3xl font-black">
         {displayText}
       </Animated.Text>
